@@ -1,0 +1,82 @@
+{
+  "name": "pathcompleter",
+  "displayName": "PathCompleter",
+  "description": "Allows to use autocompletion everywhere in the project.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.79.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": [
+      {
+        "title": "Custom root paths",
+        "order": 0,
+        "description": "These variables will be considered as possible root paths for completion",
+        "properties": {
+          "pathcompleter.customPaths": {
+            "type": "array",
+            "description": "There you may define variables which will be substituded with a corresponding value during path completion. For example, you may define variable HOME pointing to your home directory, then it will be easier to make machine independent bash scripts.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "variable": {
+                  "type": "string",
+                  "description": "Title"
+                },
+                "path": {
+                  "type": "string",
+                  "description": "Path"
+                }
+              }
+            },
+            "uniqueItems": true
+          },
+          "pathcompleter.useRoot": {
+            "type":"boolean",
+            "title": "Use /",
+            "description": "Suggest completion from the root (/).",
+            "default": true
+          },
+          "pathcompleter.useCurrentWorkspace": {
+            "type":"boolean",
+            "description": "Suggest completion from the opened workspace.",
+            "default": true
+          },
+          "pathcompleter.useCurrentFileDir": {
+            "type":"boolean",
+            "description": "Suggest completion from the directory containing the current file",
+            "default": true
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.79.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.39.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.4",
+    "@vscode/test-electron": "^2.3.0"
+  }
+}
